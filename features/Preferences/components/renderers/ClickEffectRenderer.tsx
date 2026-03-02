@@ -60,7 +60,8 @@ export default function ClickEffectRenderer() {
 
     // ── Spawn burst ───────────────────────────────────────────────────────────
     const BURST_COUNT = 10;
-    const MAX_PARTICLES = 150; // ~15 full bursts; caps fillrate at ~375k px/frame @ 50px
+    // Coarse-pointer (touch) devices get a lower cap to stay within mobile GPU budget
+    const MAX_PARTICLES = window.matchMedia('(pointer: coarse)').matches ? 60 : 150;
 
     const spawnAt = (x: number, y: number) => {
       const bmp = getEmojiBitmap(emoji, 48);
